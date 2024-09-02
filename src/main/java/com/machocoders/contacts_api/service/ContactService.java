@@ -1,5 +1,7 @@
 package com.machocoders.contacts_api.service;
 
-public interface ContactService {
+import com.machocoders.contacts_api.pojo.Contact;
 
+public interface ContactService {
+    Contact getContactById(String id);
 }
