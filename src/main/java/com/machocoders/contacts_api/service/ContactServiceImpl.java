@@ -1,5 +1,6 @@
 package com.machocoders.contacts_api.service;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,31 @@ public class ContactServiceImpl implements ContactService {
     private ContactRepository contactRepository;
 
     @Override
+    public List<Contact> getContacts() {
+        return contactRepository.getContacts();
+    }
+
+    @Override
     public Contact getContactById(String id) {
         int index = findIndexById(id);
         return contactRepository.getContact(index);
+    }
+
+    @Override
+    public void saveContact(Contact contact) {
+        contactRepository.saveContact(contact);
+    }
+
+    @Override
+    public void updateContact(String id, Contact contact) {
+        int index = findIndexById(id);
+        contactRepository.updateContact(index, contact);
+    }
+
+    @Override
+    public void deleteContact(String id) {
+        int index = findIndexById(id);
+        contactRepository.deleteContact(index);
     }
 
     private int findIndexById(String id) {
