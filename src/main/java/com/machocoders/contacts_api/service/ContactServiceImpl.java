@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.machocoders.contacts_api.exception.NoContactFoundException;
 import com.machocoders.contacts_api.pojo.Contact;
 import com.machocoders.contacts_api.repository.ContactRepository;
 
@@ -47,6 +48,6 @@ public class ContactServiceImpl implements ContactService {
         return IntStream.range(0, contactRepository.getContacts().size())
                 .filter(index -> contactRepository.getContacts().get(index).getId().equals(id))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new NoContactFoundException(id));
     }
 }
