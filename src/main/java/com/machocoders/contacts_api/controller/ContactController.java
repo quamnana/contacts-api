@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,7 +61,7 @@ public class ContactController {
     })
     @Operation(summary = "Create Contact", description = "Creates a contact from the provided payload")
     @PostMapping(value = "/contacts", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact) {
+    public ResponseEntity<HttpStatus> createContact(@Valid @RequestBody Contact contact) {
         contactService.saveContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -71,7 +72,7 @@ public class ContactController {
     })
     @Operation(summary = "Update Contact", description = "Updates a contact from the provided payload")
     @PutMapping(value = "/contacts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Contact> updateContact(@PathVariable String id, @RequestBody Contact contact) {
+    public ResponseEntity<Contact> updateContact(@PathVariable String id, @Valid @RequestBody Contact contact) {
         contactService.updateContact(id, contact);
         Contact updatedContact = contactService.getContactById(id);
         return new ResponseEntity<>(updatedContact, HttpStatus.OK);

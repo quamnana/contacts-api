@@ -2,9 +2,15 @@ package com.machocoders.contacts_api.pojo;
 
 import java.util.UUID;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Contact {
     private String id;
+
+    @NotBlank(message = "Name can not be blank")
     private String name;
+
+    @NotBlank(message = "Phone number can not be blank")
     private String phoneNumber;
 
     public Contact(String id, String name, String phoneNumber) {
